@@ -1,0 +1,84 @@
+# Gera o instalador do Windows e publica a Release quando uma tag vX.Y.Z é enviada.
+# Tudo acontece aqui, à vista de todos: o código da tag, os testes, o Onde Caçar fixado no package.json
+# (tag + SHA-256), o instalador e o SHA-256 do instalador. Só o último job tem escrita no repositório, e
+# ele não roda código do projeto: só publica os arquivos gerados pelos outros.
+name: Release
+
+on:
+  push:
+    tags: ['v*.*.*']
+
+permissions:
+  contents: read
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+      - run: npm test
+
+  instalador:
+    needs: testes
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+      - name: A tag bate com a versão do app
+        shell: pwsh
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          $v = (Get-Content app/package.json -Raw | ConvertFrom-Json).version
+          if ("v$v" -ne $env:TAG) { throw "a tag $env:TAG não bate com app/package.json ($v)" }
+      - run: npm ci --ignore-scripts
+      - name: Onde Caçar (a versão fixada no package.json, conferida pelo SHA-256)
+        run: node scripts/baixar-onde-cacar.mjs
+      - run: npx electron-builder --win --publish never
+      - name: SHA-256 do instalador
+        shell: pwsh
+        run: |
+          $f = Get-Item dist/*-instalador.exe
+          $h = (Get-FileHash $f.FullName -Algorithm SHA256).Hash.ToLower()
+          "$h  $($f.Name)" | Out-File -Encoding ascii dist/SHA256SUMS.txt
+          Get-Content dist/SHA256SUMS.txt
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: release
+          path: |
+            dist/*-instalador.exe
+            dist/SHA256SUMS.txt
+          if-no-files-found: error
+
+  publicar:
+    needs: instalador
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: .github/nota-da-release.md
+          sparse-checkout-cone-mode: false
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: release
+          path: release
+      - name: Release (rascunho até todos os arquivos subirem)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release create "$TAG" release/* --draft --verify-tag --title "PokeIdle Multiconta $TAG" --notes-file .github/nota-da-release.md
+          gh release edit "$TAG" --draft=false

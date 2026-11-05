@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "PokeIdle · __ROTULO__",
+  "version": "0.1.0",
+  "description": "Mostra de qual conta é esta janela.",
+  "content_scripts": [
+    {
+      "matches": ["https://pokeidle.io/*"],
+      "js": ["rotulo.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "pokeidle-multiconta-app",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Até 4 contas do PokeIdle numa janela só, em mosaico.",
+  "main": "main.mjs",
+  "author": "Comunidade Onde Caçar",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "44.9.3"
+  }
+}

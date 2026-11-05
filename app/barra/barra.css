@@ -1,0 +1,39 @@
+html, body { margin: 0; height: 100%; }
+body {
+  display: flex; align-items: center; gap: 10px; padding: 0 10px;
+  font: 12px system-ui, sans-serif; background: #15161a; color: #d9dbe1;
+  user-select: none; overflow: hidden; white-space: nowrap;
+}
+.topo .nome { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+#contas { display: flex; gap: 6px; min-width: 0; overflow: hidden; flex: 1 1 auto; }
+.conta {
+  display: flex; flex-direction: column; gap: 1px; padding: 2px 4px 3px 8px; min-width: 0; flex: 1 1 0;
+  border-radius: 5px; background: #23252c; border: 1px solid transparent;
+}
+.topo { display: flex; align-items: center; gap: 6px; }
+.resumo { display: flex; gap: 10px; font-size: 11px; color: #aeb2bd; overflow: hidden; padding-right: 4px; min-width: 0; }
+/* só a hunt encolhe (com reticências); nível, gold e ritmo ficam sempre inteiros */
+.resumo span { flex: none; }
+.resumo span:first-child { flex: 0 1 auto; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.conta:not([data-status="conectada"]) .resumo { opacity: .45; }
+.conta.ampliada { border-color: #7b6cf6; background: #2b2840; }
+.ponto { width: 8px; height: 8px; border-radius: 50%; background: #6b6f7a; flex: none; }
+.conta[data-status="conectada"] .ponto { background: #3ecf6e; }
+.conta[data-status="carregando"] .ponto { background: #e0b341; }
+.conta[data-status="desconectada"] .ponto,
+.conta[data-status="caiu"] .ponto,
+.conta[data-status="erro"] .ponto { background: #e5534b; }
+.conta[data-status="bloqueada"] .ponto { background: #d97b2e; }
+.nome { cursor: default; }
+.estado { color: #8b8f99; }
+button {
+  font: inherit; color: #d9dbe1; background: transparent; border: 0; border-radius: 4px;
+  padding: 1px 5px; cursor: pointer;
+}
+button:hover { background: #343744; }
+button.grade { background: #2b2840; border: 1px solid #7b6cf6; }
+.problemas { color: #f0b429; margin-left: auto; overflow: hidden; text-overflow: ellipsis; }
+button.compacto { border: 1px solid #3a3d48; }
+button:disabled { opacity: .6; cursor: progress; }
+button.novidade { border-color: #3ecf6e; color: #3ecf6e; }
+.modo-compacto .atualizar { display: none; } /* a faixa fica só com o status */

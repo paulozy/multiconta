@@ -1,0 +1,33 @@
+{
+  "profile": {
+    "last_used": "Default",
+    "info_cache": {
+      "Default": {
+        "name": "Perfil 1",
+        "shortcut_name": "Pessoal"
+      },
+      "Profile 2": {
+        "name": "PokeIdle 2"
+      },
+      "Profile 3": {
+        "name": "Perfil 2"
+      },
+      "Profile 4": {
+        "name": "Trabalho"
+      },
+      "Profile 5": {
+        "name": "trabalho"
+      },
+      "..\\..\\Windows": {
+        "name": "Mau"
+      },
+      "x'); Remove-Item C:\\; ('": {
+        "name": "Injeção"
+      },
+      "Profile 6": null
+    }
+  },
+  "os_crypt": {
+    "encrypted_key": "<fictício: o lançador nunca lê isto>"
+  }
+}

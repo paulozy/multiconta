@@ -1,0 +1,10 @@
+# nada de sessão, perfil ou medição bruta no git
+node_modules/
+contas.json
+relatorio-*.json
+medicao-*.json
+*.db
+# perfis das contas (têm o token) nunca entram aqui
+perfis/
+dist/
+build/

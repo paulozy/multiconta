@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <!-- a barra não carrega nada de fora nem roda código vindo da rede -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'self'">
+  <link rel="stylesheet" href="barra.css">
+  <title>Barra</title>
+</head>
+<body>
+  <span id="contas"></span>
+  <button id="grade" class="grade" hidden title="Voltar ao mosaico (Ctrl+0)">▦ Grade</button>
+  <button id="compacto" class="compacto" title="Só esta faixa com o status das contas (Ctrl+M); os jogos seguem rodando">▭ Compacto</button>
+  <button id="atualizar" class="compacto atualizar" title="Atualizar o Onde Caçar">⟳ Onde Caçar</button>
+  <button id="novidade" class="compacto novidade" hidden title="Há uma versão nova do app: abrir a página para baixar"></button>
+  <button id="config" class="compacto" title="Configurações: contas, trazer login de um navegador, extensões">⚙</button>
+  <span id="problemas" class="problemas" hidden></span>
+  <script src="formato.js"></script>
+  <script src="barra.js"></script>
+</body>
+</html>

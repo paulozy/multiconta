@@ -1,0 +1,9 @@
+{
+  "ondeCacar": "C:\\caminho\\do\\clone\\onde-cacar",
+  "contas": [
+    { "id": "principal", "rotulo": "Principal" },
+    { "id": "alt1", "rotulo": "Alt 1" },
+    { "id": "alt2", "rotulo": "Alt 2" },
+    { "id": "alt3", "rotulo": "Alt 3" }
+  ]
+}

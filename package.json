@@ -1,0 +1,58 @@
+{
+  "name": "pokeidle-multiconta",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Até 4 contas do PokeIdle numa janela só, em mosaico, com o Onde Caçar.",
+  "scripts": {
+    "test": "node --test \"testes/*.test.mjs\"",
+    "onde-cacar": "node scripts/baixar-onde-cacar.mjs",
+    "pacote": "node scripts/baixar-onde-cacar.mjs && electron-builder --win --publish never"
+  },
+  "license": "MIT",
+  "build": {
+    "appId": "io.github.paulozy.multiconta",
+    "productName": "PokeIdle Multiconta",
+    "electronVersion": "44.9.3",
+    "directories": {
+      "app": "app",
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!**/*.test.mjs",
+      "!cli.mjs",
+      "!instalar-app.mjs"
+    ],
+    "extraResources": [
+      {
+        "from": "build/onde-cacar",
+        "to": "onde-cacar"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "app/icone/icone.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "deleteAppDataOnUninstall": false,
+      "shortcutName": "PokeIdle Multiconta",
+      "artifactName": "PokeIdle-Multiconta-${version}-instalador.${ext}"
+    },
+    "electronFuses": {
+      "runAsNode": false,
+      "enableNodeCliInspectArguments": false,
+      "enableNodeOptionsEnvironmentVariable": false,
+      "onlyLoadAppFromAsar": true,
+      "enableEmbeddedAsarIntegrityValidation": true
+    }
+  },
+  "devDependencies": {
+    "electron-builder": "26.17.0"
+  },
+  "ondeCacar": {
+    "tag": "v2.9.3",
+    "sha256": "9f6e89eca91a9826a5b7dfebeb10cc5bc10b9fb71db953525f94f7d64a1fc4ca"
+  }
+}

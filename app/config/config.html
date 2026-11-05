@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <!-- a tela não carrega nada de fora nem roda código vindo da rede -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'self'">
+  <link rel="stylesheet" href="config.css">
+  <title>Configurações</title>
+</head>
+<body>
+  <main>
+    <h1>Configurações</h1>
+    <p class="intro">Tudo fica neste PC: o app não guarda senha e nada sai daqui. O jogo libera até 4 contas por conexão.</p>
+
+    <section>
+      <h2>Contas</h2>
+      <div id="contas"></div>
+      <button id="adicionar-conta" class="secundario">+ Adicionar conta</button>
+      <p class="dica">Conta nova abre na tela de entrar do jogo, dentro da célula (Discord ou e-mail e senha).
+        O Google não deixa entrar dentro de apps: para conta Google, use <b>Trazer login</b> de um navegador em que ela já está logada.</p>
+    </section>
+
+    <section id="importar" hidden>
+      <h2>Trazer login de <span id="importar-conta"></span></h2>
+      <label>Navegador <select id="importar-navegador"></select></label>
+      <label>Perfil <select id="importar-perfil"></select></label>
+      <p class="dica">Feche as janelas desse perfil no navegador antes (o navegador só grava o login ao fechar).
+        Depois, não jogue essa conta no navegador com o app aberto: um derruba o outro.
+        A cópia leva os dados de sites desse perfil para a pasta da conta, só neste PC.</p>
+      <div class="acoes">
+        <button id="importar-ok">Salvar, trazer login e reiniciar</button>
+        <button id="importar-cancelar" class="secundario">Cancelar</button>
+      </div>
+      <p id="importar-erro" class="erro" hidden></p>
+    </section>
+
+    <section>
+      <h2>Extensões</h2>
+      <label class="extensao">
+        <input type="checkbox" id="onde-cacar">
+        <span><b>Onde Caçar</b> <span class="selo">recomendado</span> <span id="onde-versao" class="versao"></span><br>
+          <span class="dica">Ajudante do PokeIdle: melhores hunts, sessão, mercado. Código aberto (licença MIT):
+            você pode ler cada linha no <a href="#" id="repositorio">repositório no GitHub</a>.</span></span>
+      </label>
+      <div id="extras"></div>
+      <button id="adicionar-extensao" class="secundario">+ Adicionar extensão</button>
+      <p class="dica aviso">Uma extensão aberta no jogo consegue ler o login da conta e levar a conta e as Gemas.
+        Só adicione extensões em que você confia, de código que você conhece. Algumas extensões do Chrome não funcionam aqui.</p>
+    </section>
+
+    <p id="erro" class="erro" hidden></p>
+  </main>
+  <footer>
+    <button id="salvar">Salvar e reiniciar</button>
+    <button id="cancelar" class="secundario">Cancelar</button>
+  </footer>
+  <script src="config.js"></script>
+</body>
+</html>
